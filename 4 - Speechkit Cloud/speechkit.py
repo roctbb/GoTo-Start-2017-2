@@ -3,10 +3,7 @@ import httplib2
 import urllib.request
 import urllib.parse
 import uuid
-import numpy
 import time
-import struct
-import os
 
 YANDEX_ASR_HOST = 'asr.yandex.net'
 YANDEX_ASR_PATH = '/asr_xml'
