@@ -20,9 +20,11 @@ KEY = "50c28e18-444d-4011-aeca-1ebaad3020ca"
 
 launch_time = time.time()
 
+
 def log(s):
     elapsed = time.time() - launch_time
-    print(("[%02d:%02d] " % (int(elapsed//60), int(elapsed%60))) + str(s))
+    print(("[%02d:%02d] " % (int(elapsed // 60), int(elapsed % 60))) + str(s))
+
 
 def read_chunks(chunk_size, byte_data):
     while True:
@@ -37,7 +39,6 @@ def read_chunks(chunk_size, byte_data):
 
 def record_to_text(data, request_id=uuid.uuid4().hex, topic='notes', lang='ru-RU',
                    key=KEY):
-
     log("Считывание блока байтов")
     chunks = read_chunks(CHUNK_SIZE, data)
 
@@ -90,25 +91,16 @@ def record_to_text(data, request_id=uuid.uuid4().hex, topic='notes', lang='ru-RU
     else:
         raise SpeechException('Unknown error.\nCode: %s\n\n%s' % (response.code, response.read()))
 
-def text_to_record(text):
-    '''
-    https://tts.voicetech.yandex.net/generate?
-          text=<текст для озвучивания>
-        & format=<формат аудио файла>
-        & lang=<язык>
-        & speaker=<голос>
-        & key=<API‑ключ>
 
-        & [emotion=<эмоциональная окраска голоса>]
-        & [speed=<скорость речи>]
-    '''
+def text_to_record(text, speaker='jane', emotion='neutral', speed=1.0):
     log("Преобразование текста в речь")
     filename = str(uuid.uuid4()) + '.wav'
-    url = 'https://tts.voicetech.yandex.net/generate?text={text}&format=wav&lang=ru-RU&speaker=jane&key={key}'.format(
+    url = 'https://tts.voicetech.yandex.net/generate?text={text}&format=wav&lang=ru-RU&speaker=jane&key={key}&speaker={speaker}&emotion={emotion}&speed={speed}'.format(
         text=urllib.parse.quote(text),
-        key=KEY)
+        key=KEY, speaker=speaker, emotion=emotion, speed=speed)
     urllib.request.urlretrieve(url, 'tts/' + filename)
     return 'tts/' + filename
+
 
 class SpeechException(Exception):
     pass
