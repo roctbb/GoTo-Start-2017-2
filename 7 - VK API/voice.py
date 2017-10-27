@@ -1,9 +1,5 @@
 import pyaudio, speechkit, wave
 
-FORMAT = pyaudio.paInt16  # глубина звука = 16 бит = 2 байта
-CHANNELS = 1  # моно
-RATE = 16000  # частота дискретизации - кол-во фреймов в секунду
-CHUNK = 4000  # кол-во фреймов за один "запрос" к микрофону - тк читаем по кусочкам
 
 def record(seconds):
     audio = pyaudio.PyAudio()
@@ -33,11 +29,5 @@ def play(data, framerate=44100):
     output_stream.write(data)
     output_stream.close()
 
-data = record(5)
-
-try:
-    print(speechkit.record_to_text(data))
-except:
-    print("Я вас не понял")
-
-
+def say(text):
+    play_file(speechkit.text_to_record(text))
