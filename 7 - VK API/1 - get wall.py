@@ -10,7 +10,7 @@ vk_api = vk.API(session)
 text = recognize(3)
 print(text)
 
-records = vk_api.wall.search(domain='kinopoisk', query=text, owners_only=1, v=5.68, count=100)
+records = vk_api.wall.search(domain='kinopoisk', query=text, v=5.68, count=100)
 
 for i in range(10):
     try:

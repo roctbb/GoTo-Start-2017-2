@@ -9,7 +9,9 @@ for i in range(img.width):
         r, g, b = pixels[i, j]
         a = randint(-150, 150)
         r = max(min(r + a, 255), 0)
+        a = randint(-150, 150)
         g = max(min(g + a, 255), 0)
+        a = randint(-150, 150)
         b = max(min(b + a, 255), 0)
         pixels[i, j] = (r, g, b, a)
 

@@ -11,4 +11,4 @@ img.paste(left, (img.width//2, 0))
 
 left.show()
 img.show()
-
+img.save("filtered_dog.jpg")

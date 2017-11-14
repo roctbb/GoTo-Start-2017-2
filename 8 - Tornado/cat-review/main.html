@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Обзоры на котов</h2>
+
+{% for cat in cats %}
+    <h4>{{ cat['name'] }}</h4>
+    <img src="{{ cat['photo']  }}" height="100px"/>
+    <p>{{ cat['description'] }}</p>
+{% end %}
+
+<a href="/add">Добавить</a>
+</body>
+</html>
