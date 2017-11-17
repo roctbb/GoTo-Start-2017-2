@@ -1,20 +1,17 @@
-import requests
 import vk
 from config import token
-from random import choice
-from voice import say, recognize
 
 session = vk.Session(access_token=token)
 vk_api = vk.API(session)
 
-text = recognize(3)
-print(text)
+posts = []
 
-records = vk_api.wall.search(domain='kinopoisk', query=text, v=5.68, count=100)
+for i in range(0, 5000, 100):
+    result = vk_api.wall.get(domain='kinopoisk', count=100, offset=i, v=5.69)
+    posts += result['items']
+    if i % 1000 == 0:
+        print(i)
 
-for i in range(10):
-    try:
-        random_record = choice(records['items'])
-        say(random_record['text'])
-    except:
-        pass
+posts = sorted(posts, key=lambda x: x['likes']['count'], reverse=True)
+
+print(posts[0]['text'])
